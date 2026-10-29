@@ -727,16 +727,167 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- VISTA 4: CHECKLIST CLÍNICO (Placeholder)  -->
+    <!-- VISTA 4: CHECKLIST CLÍNICO PRE-USO (F4)   -->
     <!-- ========================================== -->
     <section id="view-checklist" class="view-panel hidden flex flex-col w-full space-y-4">
-      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
-        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary">fact_check</span>
-          Checklist Pre-Uso
-        </h2>
-        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      
+      <!-- Panel de Control y Progreso de Verificación -->
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-teal-soft px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[13px]">fact_check</span> Verificación a Pie de Cama
+          </span>
+          <span id="chk-status-pill" class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-soft text-status-warning">
+            <span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span> En progreso
+          </span>
+        </div>
+
+        <!-- Barra y Métricas Rápidas -->
+        <div class="flex items-center gap-4 pt-1">
+          <div class="relative w-16 h-16 flex-shrink-0 flex items-center justify-center">
+            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="28" stroke="#eff4ff" stroke-width="6" fill="transparent"></circle>
+              <circle id="chk-circle-progress" cx="32" cy="32" r="28" stroke="#007a87" stroke-width="6" fill="transparent" stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round" class="transition-all duration-300"></circle>
+            </svg>
+            <span id="chk-percent-label" class="absolute font-bold text-sm text-primary">0%</span>
+          </div>
+
+          <div class="flex flex-col min-w-0 flex-1">
+            <h2 class="text-sm font-bold text-on-surface tracking-tight" id="chk-device-name">Máscara con Reservorio</h2>
+            <span id="chk-counter-label" class="text-xs font-bold text-primary mt-0.5">0 de 5 verificados</span>
+            <p id="chk-helper-msg" class="text-[11px] text-on-surface-variant leading-tight mt-1">
+              Marca cada casilla antes de colocar el dispositivo al paciente.
+            </p>
+          </div>
+        </div>
+
+        <!-- Barra lineal sutil -->
+        <div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+          <div id="chk-linear-progress" class="h-full bg-primary transition-all duration-300 rounded-full" style="width: 0%;"></div>
+        </div>
       </div>
+
+      <!-- Lista de Verificación Táctil (Casillas con un toque) -->
+      <div class="space-y-2.5" id="checklist-items-container">
+        
+        <!-- Ítem 1 -->
+        <div onclick="toggleCheckItem(1)" class="chk-item-card flex items-start gap-3 p-3.5 bg-surface-pure rounded-2xl shadow-sm border border-surface-container cursor-pointer select-none transition-all active:scale-[0.99]" id="chk-card-1">
+          <div class="flex-shrink-0 pt-0.5">
+            <div id="chk-box-1" class="w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[16px] font-bold">check</span>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="text-xs font-bold text-on-surface leading-snug">1. Integridad de válvulas</h3>
+              <span class="px-2 py-0.5 rounded-full bg-red-soft text-status-danger text-[10px] font-bold">Crítico</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant mt-0.5 leading-tight">
+              Membranas de silicona limpias, flexibles y sin fisuras ni humedad adherida.
+            </p>
+          </div>
+        </div>
+
+        <!-- Ítem 2 -->
+        <div onclick="toggleCheckItem(2)" class="chk-item-card flex items-start gap-3 p-3.5 bg-surface-pure rounded-2xl shadow-sm border border-surface-container cursor-pointer select-none transition-all active:scale-[0.99]" id="chk-card-2">
+          <div class="flex-shrink-0 pt-0.5">
+            <div id="chk-box-2" class="w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[16px] font-bold">check</span>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="text-xs font-bold text-on-surface leading-snug">2. Tubuladura anticolapso conectada</h3>
+              <span class="px-2 py-0.5 rounded-full bg-teal-soft text-primary text-[10px] font-bold">Conexión</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant mt-0.5 leading-tight">
+              Tubo Star-Lumen acoplado firmemente al niple verde del flujómetro sin escapes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Ítem 3 -->
+        <div onclick="toggleCheckItem(3)" class="chk-item-card flex items-start gap-3 p-3.5 bg-surface-pure rounded-2xl shadow-sm border border-surface-container cursor-pointer select-none transition-all active:scale-[0.99]" id="chk-card-3">
+          <div class="flex-shrink-0 pt-0.5">
+            <div id="chk-box-3" class="w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[16px] font-bold">check</span>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="text-xs font-bold text-on-surface leading-snug">3. Flujo calibrado (10 - 15 L/min)</h3>
+              <span class="px-2 py-0.5 rounded-full bg-red-soft text-status-danger text-[10px] font-bold">Crítico</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant mt-0.5 leading-tight">
+              Flujómetro de O2 abierto al volumen requerido para garantizar FiO2 elevada.
+            </p>
+          </div>
+        </div>
+
+        <!-- Ítem 4 -->
+        <div onclick="toggleCheckItem(4)" class="chk-item-card flex items-start gap-3 p-3.5 bg-surface-pure rounded-2xl shadow-sm border border-surface-container cursor-pointer select-none transition-all active:scale-[0.99]" id="chk-card-4">
+          <div class="flex-shrink-0 pt-0.5">
+            <div id="chk-box-4" class="w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[16px] font-bold">check</span>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="text-xs font-bold text-on-surface leading-snug">4. Bolsa reservorio pre-inflada</h3>
+              <span class="px-2 py-0.5 rounded-full bg-red-soft text-status-danger text-[10px] font-bold">Vital</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant mt-0.5 leading-tight">
+              Oclusión previa de válvula comprobada; bolsa llena antes del contacto con el paciente.
+            </p>
+          </div>
+        </div>
+
+        <!-- Ítem 5 -->
+        <div onclick="toggleCheckItem(5)" class="chk-item-card flex items-start gap-3 p-3.5 bg-surface-pure rounded-2xl shadow-sm border border-surface-container cursor-pointer select-none transition-all active:scale-[0.99]" id="chk-card-5">
+          <div class="flex-shrink-0 pt-0.5">
+            <div id="chk-box-5" class="w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[16px] font-bold">check</span>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="text-xs font-bold text-on-surface leading-snug">5. Sellado facial y clip nasal moldeado</h3>
+              <span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-[10px] font-semibold">Sellado</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant mt-0.5 leading-tight">
+              Ajuste perinasal suave sin fugas directas hacia los ojos ni dolor en el puente nasal.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de Acciones Fija: Reiniciar y Validar -->
+      <div class="bg-surface-pure rounded-2xl p-3 shadow-md border border-surface-container flex items-center gap-2">
+        <button onclick="resetChecklist()" class="flex items-center justify-center gap-1.5 px-3.5 py-3 rounded-xl bg-surface-container text-on-surface font-semibold text-xs active:bg-surface-container-high transition-all flex-shrink-0" title="Reiniciar para siguiente paciente" type="button">
+          <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+          <span>Reiniciar</span>
+        </button>
+
+        <button id="btn-chk-confirm" onclick="confirmChecklist()" class="flex-1 flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs active:scale-[0.98] transition-all" type="button">
+          <span class="material-symbols-outlined text-[18px]" id="btn-chk-icon">fact_check</span>
+          <span id="btn-chk-text">Confirmar Montaje Seguro</span>
+        </button>
+      </div>
+
+      <!-- Banner de Felicitación / Notificación Flotante -->
+      <div id="toast-checklist" class="hidden bg-status-success text-on-primary p-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all animate-bounce">
+        <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-[24px]">verified</span>
+        </div>
+        <div class="flex flex-col min-w-0 flex-1">
+          <span class="text-xs font-bold leading-tight">¡Montaje 100% Validado!</span>
+          <span class="text-[11px] text-green-soft leading-tight mt-0.5">
+            Laura, el dispositivo cumple todos los criterios de seguridad clínica para el paciente.
+          </span>
+        </div>
+      </div>
+
     </section>
 
     <!-- ========================================== -->
@@ -1088,6 +1239,127 @@
         renderStep(step);
       }
     }
+
+    // Estado y Lógica del Checklist Clínico
+    const checklistState = {
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false
+    };
+
+    function toggleCheckItem(id) {
+      checklistState[id] = !checklistState[id];
+      const isChecked = checklistState[id];
+
+      const box = document.getElementById('chk-box-' + id);
+      const card = document.getElementById('chk-card-' + id);
+
+      if (isChecked) {
+        box.className = 'w-6 h-6 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-xs transition-all';
+        card.classList.add('border-primary/50', 'bg-teal-soft/20');
+      } else {
+        box.className = 'w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all';
+        card.classList.remove('border-primary/50', 'bg-teal-soft/20');
+      }
+
+      updateChecklistProgress();
+    }
+
+    function updateChecklistProgress() {
+      const keys = Object.keys(checklistState);
+      const total = keys.length;
+      let checkedCount = 0;
+      keys.forEach(k => {
+        if (checklistState[k]) checkedCount++;
+      });
+
+      const pct = Math.round((checkedCount / total) * 100);
+      document.getElementById('chk-percent-label').textContent = pct + '%';
+      document.getElementById('chk-counter-label').textContent = `${checkedCount} de ${total} verificados`;
+      document.getElementById('chk-linear-progress').style.width = pct + '%';
+
+      // Circunferencia del círculo SVG: 2 * PI * 28 ≈ 175.9
+      const dashoffset = 175.9 - (175.9 * (checkedCount / total));
+      document.getElementById('chk-circle-progress').style.strokeDashoffset = dashoffset;
+
+      const pill = document.getElementById('chk-status-pill');
+      const btn = document.getElementById('btn-chk-confirm');
+      const btnText = document.getElementById('btn-chk-text');
+      const btnIcon = document.getElementById('btn-chk-icon');
+
+      if (checkedCount === total) {
+        pill.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-green-soft text-status-success';
+        pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> ¡Listo Seguro!';
+        btn.className = 'flex-1 flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-status-success text-on-primary font-bold text-xs shadow-md active:scale-[0.98] transition-all';
+        btnText.textContent = '¡Montaje 100% Seguro!';
+        btnIcon.textContent = 'verified';
+      } else {
+        pill.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-soft text-status-warning';
+        pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span> En progreso';
+        btn.className = 'flex-1 flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs active:scale-[0.98] transition-all';
+        btnText.textContent = 'Confirmar Montaje Seguro';
+        btnIcon.textContent = 'fact_check';
+      }
+    }
+
+    function resetChecklist() {
+      for (let i = 1; i <= 5; i++) {
+        checklistState[i] = false;
+        const box = document.getElementById('chk-box-' + i);
+        const card = document.getElementById('chk-card-' + i);
+        if (box) box.className = 'w-6 h-6 rounded-lg bg-surface-container text-transparent flex items-center justify-center transition-all';
+        if (card) card.classList.remove('border-primary/50', 'bg-teal-soft/20');
+      }
+      document.getElementById('toast-checklist').classList.add('hidden');
+      updateChecklistProgress();
+    }
+
+    function confirmChecklist() {
+      const keys = Object.keys(checklistState);
+      const total = keys.length;
+      let checkedCount = 0;
+      keys.forEach(k => { if (checklistState[k]) checkedCount++; });
+
+      const toast = document.getElementById('toast-checklist');
+      toast.classList.remove('hidden');
+
+      if (checkedCount === total) {
+        toast.className = 'bg-status-success text-on-primary p-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all';
+        toast.innerHTML = `
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-[24px]">verified</span>
+          </div>
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-xs font-bold leading-tight">¡Montaje 100% Validado!</span>
+            <span class="text-[11px] text-green-soft leading-tight mt-0.5">
+              Laura, el dispositivo cumple todos los criterios de seguridad para el paciente.
+            </span>
+          </div>
+        `;
+      } else {
+        toast.className = 'bg-amber-soft text-on-surface border border-amber-300 p-4 rounded-2xl shadow-xl flex items-center gap-3 transition-all';
+        toast.innerHTML = `
+          <div class="w-10 h-10 rounded-xl bg-status-warning text-on-primary flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-[24px]">warning</span>
+          </div>
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-xs font-bold leading-tight text-status-warning">Faltan puntos por verificar</span>
+            <span class="text-[11px] text-on-surface-variant leading-tight mt-0.5">
+              Tienes ${checkedCount} de ${total} casillas marcadas. Completa todos los ítems críticos antes de iniciar.
+            </span>
+          </div>
+        `;
+      }
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    }
+
+    // Seleccionar dispositivo activo
+    function selectDevice(key) {
       currentDevice = key;
       const data = deviceCatalogData[key];
       if (data) {
@@ -1096,6 +1368,12 @@
         
         const compTitle = document.getElementById('comp-device-title');
         if (compTitle) compTitle.textContent = data.title;
+
+        const chkTitle = document.getElementById('chk-device-name');
+        if (chkTitle) chkTitle.textContent = data.title;
+
+        const stepDevice = document.getElementById('step-device-caption');
+        if (stepDevice) stepDevice.textContent = data.title;
       }
 
       // Resaltar tarjeta seleccionada
