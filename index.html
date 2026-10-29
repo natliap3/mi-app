@@ -564,16 +564,166 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- VISTA 3: MONTAJE PASO A PASO (Placeholder) -->
+    <!-- VISTA 3: MONTAJE PASO A PASO (F3)         -->
     <!-- ========================================== -->
     <section id="view-montaje" class="view-panel hidden flex flex-col w-full space-y-4">
-      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
-        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary">build_circle</span>
-          Montaje Paso a Paso
-        </h2>
-        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      
+      <!-- Barra de Progreso Superior -->
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container space-y-2.5">
+        <div class="flex items-center justify-between text-xs">
+          <div class="flex items-center gap-1.5 font-bold text-primary">
+            <span class="material-symbols-outlined text-[17px]">build_circle</span>
+            <span id="step-counter-pill">PASO 1 DE 4</span>
+          </div>
+          <span id="step-phase-label" class="text-on-surface-variant font-medium">Fase: Inspección Previa</span>
+        </div>
+        
+        <!-- Barra de progreso lineal -->
+        <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+          <div id="step-progress-bar" class="h-full bg-primary transition-all duration-300 rounded-full" style="width: 25%;"></div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-0.5 text-on-surface-variant">
+          <span id="step-device-caption" class="font-semibold text-primary">Máscara con Reservorio</span>
+          <span id="step-percent-text" class="font-bold">25% completado</span>
+        </div>
       </div>
+
+      <!-- Tarjeta Principal del Paso Activo -->
+      <article class="bg-surface-pure rounded-2xl shadow-sm border border-surface-container p-4 space-y-3 relative overflow-hidden" id="active-step-card">
+        
+        <!-- Encabezado del Paso -->
+        <div>
+          <span id="step-sub" class="text-[11px] font-bold text-primary uppercase tracking-wider block">Paso Procedimental 01</span>
+          <h2 id="step-title" class="text-base font-bold text-on-surface tracking-tight mt-0.5 leading-snug">
+            1. Inspección de Válvulas y Membranas
+          </h2>
+        </div>
+
+        <!-- Ilustración / Gráfico Técnico del Paso -->
+        <div class="relative w-full h-48 rounded-xl bg-surface-container-low border border-surface-container flex flex-col items-center justify-center p-3 overflow-hidden select-none" id="step-graphic-box">
+          <div id="step-icon-container" class="w-16 h-16 rounded-2xl bg-teal-soft text-primary flex items-center justify-center shadow-xs mb-2">
+            <span id="step-main-icon" class="material-symbols-outlined text-[36px]">visibility</span>
+          </div>
+          <span id="step-graphic-caption" class="text-xs font-bold text-primary text-center px-4">
+            Revisar membranas de silicona y sello hermético
+          </span>
+          <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded-full bg-surface-pure/90 text-[10px] font-semibold text-on-surface-variant shadow-xs flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Inspección visual
+          </div>
+        </div>
+
+        <!-- Instrucciones Claras y Prácticas -->
+        <div class="space-y-2 pt-1" id="step-instructions">
+          <div class="flex items-start gap-2.5">
+            <div class="w-5 h-5 rounded-full bg-teal-soft text-primary flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+              A
+            </div>
+            <p id="step-instruction-a" class="text-xs text-on-surface leading-relaxed">
+              Revisa que las membranas de silicona de las válvulas espiratorias laterales y la válvula entre la máscara y la bolsa estén bien colocadas y no estén rotas.
+            </p>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <div class="w-5 h-5 rounded-full bg-teal-soft text-primary flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+              B
+            </div>
+            <p id="step-instruction-b" class="text-xs text-on-surface leading-relaxed">
+              Comprueba que al menos una válvula lateral quede libre para evitar sofocación si por algún motivo falla el suministro de gas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Alerta de Seguridad del Paso (Caja Ámbar) -->
+        <div class="bg-amber-soft text-on-surface rounded-xl p-3 border border-amber-200/60 flex items-start gap-2.5">
+          <div class="w-7 h-7 rounded-full bg-status-warning text-surface-pure flex items-center justify-center flex-shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-[17px]">warning</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-[11px] font-bold text-status-warning uppercase tracking-wider">Cuidado Clínico</span>
+            <p id="step-warning-text" class="text-xs leading-relaxed font-medium mt-0.5">
+              Si la válvula unidireccional inspiratoria está pegada, el oxígeno no saldrá de la bolsa y el paciente sentirá que le falta el aire de inmediato.
+            </p>
+          </div>
+        </div>
+
+        <!-- Botones de Navegación Anterior / Siguiente -->
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container">
+          <button id="btn-step-prev" onclick="changeStep(-1)" class="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-surface-container text-on-surface font-semibold text-xs active:bg-surface-container-high transition-all opacity-50 cursor-not-allowed" disabled type="button">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span>Anterior</span>
+          </button>
+          
+          <button id="btn-step-next" onclick="changeStep(1)" class="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs active:scale-[0.98] transition-all" type="button">
+            <span id="btn-step-next-text">Siguiente Paso</span>
+            <span class="material-symbols-outlined text-[18px]" id="btn-step-next-icon">arrow_forward</span>
+          </button>
+        </div>
+
+      </article>
+
+      <!-- Lista / Acordeón de la Secuencia Completa -->
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container space-y-2">
+        <div class="flex items-center justify-between pb-1 border-b border-surface-container">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[18px]">format_list_numbered</span>
+            <span class="text-xs font-bold text-on-surface">Secuencia de 4 Pasos</span>
+          </div>
+          <span class="text-[11px] text-primary font-semibold">Toca para saltar a un paso</span>
+        </div>
+
+        <div class="space-y-1.5 pt-1" id="steps-overview-list">
+          
+          <!-- Paso 1 -->
+          <div onclick="jumpToStep(1)" class="step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-teal-soft/80 border border-primary/30 cursor-pointer transition-all">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-bold flex items-center justify-center flex-shrink-0" id="step-row-badge-1">1</span>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-bold text-primary truncate">1. Inspección de válvulas y sellado</span>
+                <span class="text-[10px] text-on-surface-variant truncate">Membranas y hermeticidad inicial</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-primary bg-surface-pure px-2 py-0.5 rounded-full" id="step-row-status-1">Actual</span>
+          </div>
+
+          <!-- Paso 2 -->
+          <div onclick="jumpToStep(2)" class="step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-surface-clinical border border-surface-container cursor-pointer transition-all">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold flex items-center justify-center flex-shrink-0" id="step-row-badge-2">2</span>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-semibold text-on-surface truncate">2. Conexión al flujómetro mural</span>
+                <span class="text-[10px] text-on-surface-variant truncate">Tubuladura verde Star-Lumen firme</span>
+              </div>
+            </div>
+            <span class="text-[10px] text-on-surface-variant" id="step-row-status-2">Pendiente</span>
+          </div>
+
+          <!-- Paso 3 -->
+          <div onclick="jumpToStep(3)" class="step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-surface-clinical border border-surface-container cursor-pointer transition-all">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold flex items-center justify-center flex-shrink-0" id="step-row-badge-3">3</span>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-semibold text-on-surface truncate">3. Pre-llenado de la bolsa reservorio</span>
+                <span class="text-[10px] text-on-surface-variant truncate">Ocluir con dedo enguantado y flujo 10-15 L</span>
+              </div>
+            </div>
+            <span class="text-[10px] text-on-surface-variant" id="step-row-status-3">Pendiente</span>
+          </div>
+
+          <!-- Paso 4 -->
+          <div onclick="jumpToStep(4)" class="step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-surface-clinical border border-surface-container cursor-pointer transition-all">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold flex items-center justify-center flex-shrink-0" id="step-row-badge-4">4</span>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-semibold text-on-surface truncate">4. Colocación y moldeo de clip nasal</span>
+                <span class="text-[10px] text-on-surface-variant truncate">Ajuste anatómico sin fugas a los ojos</span>
+              </div>
+            </div>
+            <span class="text-[10px] text-on-surface-variant" id="step-row-status-4">Pendiente</span>
+          </div>
+
+        </div>
+      </div>
+
     </section>
 
     <!-- ========================================== -->
@@ -798,8 +948,146 @@
       }
     }
 
-    // Seleccionar dispositivo activo
-    function selectDevice(key) {
+    // Datos del Montaje Paso a Paso
+    let currentStep = 1;
+    const assemblyStepsData = {
+      1: {
+        pill: "PASO 1 DE 4",
+        phase: "Fase: Inspección Previa",
+        progress: 25,
+        sub: "Paso Procedimental 01",
+        title: "1. Inspección de Válvulas y Membranas",
+        icon: "visibility",
+        caption: "Revisar membranas de silicona y sello hermético",
+        instA: "Revisa visualmente que el disco de silicona entre la máscara y la bolsa esté íntegro y que al menos una válvula de escape lateral esté libre.",
+        instB: "Comprueba que la máscara esté limpia y sin grietas plásticas que puedan causar fugas no deseadas de oxígeno.",
+        warning: "Si la válvula unidireccional inspiratoria está pegada por humedad previa, el oxígeno no saldrá hacia el paciente y habrá resistencia al respirar."
+      },
+      2: {
+        pill: "PASO 2 DE 4",
+        phase: "Fase: Conexión de Flujo",
+        progress: 50,
+        sub: "Paso Procedimental 02",
+        title: "2. Conexión al Flujómetro Mural",
+        icon: "cable",
+        caption: "Acople firme de la tubuladura Star-Lumen",
+        instA: "Inserta un extremo de la tubuladura verde acanalada en la entrada cónica de la máscara y el otro en el niple verde ('arbolito') del flujómetro mural.",
+        instB: "Jala suavemente para verificar que la conexión quedó ajustada herméticamente y no se desconectará con los movimientos del paciente.",
+        warning: "Usa siempre tubuladura interna estriada ('Star-Lumen') para garantizar que el gas no se interrumpa si el tubo se dobla en la cama."
+      },
+      3: {
+        pill: "PASO 3 DE 4",
+        phase: "Fase: Pre-llenado Vital",
+        progress: 75,
+        sub: "Paso Procedimental 03",
+        title: "3. Pre-llenado de la Bolsa Reservorio",
+        icon: "air",
+        caption: "Oclusión con dedo enguantado y flujo 10-15 L/min",
+        instA: "Abre el flujómetro mural y calibra entre 10 a 15 L/min de oxígeno al 100%.",
+        instB: "Tapa con tu dedo enguantado la válvula central dentro de la máscara hasta que la bolsa reservorio se infle por completo como un globo.",
+        warning: "¡REGLA DE ORO VITAL! NUNCA coloques la máscara con la bolsa desinflada. Puede provocar sofocación inmediata y reinhalación de CO₂."
+      },
+      4: {
+        pill: "PASO 4 DE 4",
+        phase: "Fase: Posicionamiento Seguro",
+        progress: 100,
+        sub: "Paso Procedimental 04",
+        title: "4. Colocación y Moldeo del Clip Nasal",
+        icon: "face",
+        caption: "Sellado anatómico facial y confort del paciente",
+        instA: "Ubica la máscara sobre la nariz y boca del paciente, pasando el arnés elástico por detrás de la cabeza, sobre las orejas.",
+        instB: "Con la yema de dos dedos, moldea el clip de aluminio sobre el puente nasal para sellar fugas hacia los ojos.",
+        warning: "Monitorea que la bolsa reservorio se mueva con cada respiración pero NO se colapse más de un tercio durante la inspiración profunda."
+      }
+    };
+
+    function renderStep(step) {
+      const data = assemblyStepsData[step];
+      if (!data) return;
+
+      currentStep = step;
+
+      // Actualizar encabezados y progreso
+      document.getElementById('step-counter-pill').textContent = data.pill;
+      document.getElementById('step-phase-label').textContent = data.phase;
+      document.getElementById('step-progress-bar').style.width = data.progress + '%';
+      document.getElementById('step-percent-text').textContent = data.progress + '% completado';
+
+      // Actualizar tarjeta del paso
+      document.getElementById('step-sub').textContent = data.sub;
+      document.getElementById('step-title').textContent = data.title;
+      document.getElementById('step-main-icon').textContent = data.icon;
+      document.getElementById('step-graphic-caption').textContent = data.caption;
+      document.getElementById('step-instruction-a').textContent = data.instA;
+      document.getElementById('step-instruction-b').textContent = data.instB;
+      document.getElementById('step-warning-text').textContent = data.warning;
+
+      // Botón Anterior
+      const prevBtn = document.getElementById('btn-step-prev');
+      if (step === 1) {
+        prevBtn.disabled = true;
+        prevBtn.className = 'flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-surface-container text-on-surface font-semibold text-xs active:bg-surface-container-high transition-all opacity-50 cursor-not-allowed';
+      } else {
+        prevBtn.disabled = false;
+        prevBtn.className = 'flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-surface-container text-on-surface font-semibold text-xs active:bg-surface-container-high transition-all';
+      }
+
+      // Botón Siguiente
+      const nextBtnText = document.getElementById('btn-step-next-text');
+      const nextBtnIcon = document.getElementById('btn-step-next-icon');
+      if (step === 4) {
+        nextBtnText.textContent = "Ver Checklist Pre-Uso";
+        nextBtnIcon.textContent = "fact_check";
+      } else {
+        nextBtnText.textContent = "Siguiente Paso";
+        nextBtnIcon.textContent = "arrow_forward";
+      }
+
+      // Actualizar resumen inferior
+      for (let i = 1; i <= 4; i++) {
+        const badge = document.getElementById('step-row-badge-' + i);
+        const status = document.getElementById('step-row-status-' + i);
+        const row = badge ? badge.closest('.step-nav-row') : null;
+        if (!row) continue;
+
+        if (i < step) {
+          row.className = 'step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-green-soft/70 border border-green-200 cursor-pointer transition-all';
+          badge.className = 'w-6 h-6 rounded-full bg-status-success text-on-primary text-[11px] font-bold flex items-center justify-center flex-shrink-0';
+          badge.innerHTML = '<span class="material-symbols-outlined text-[14px]">check</span>';
+          status.className = 'text-[10px] font-bold text-status-success bg-surface-pure px-2 py-0.5 rounded-full';
+          status.textContent = 'Completado';
+        } else if (i === step) {
+          row.className = 'step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-teal-soft/90 border border-primary/40 cursor-pointer transition-all';
+          badge.className = 'w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-bold flex items-center justify-center flex-shrink-0';
+          badge.textContent = i;
+          status.className = 'text-[10px] font-bold text-primary bg-surface-pure px-2 py-0.5 rounded-full';
+          status.textContent = 'Actual';
+        } else {
+          row.className = 'step-nav-row flex items-center justify-between p-2.5 rounded-xl bg-surface-clinical border border-surface-container cursor-pointer transition-all';
+          badge.className = 'w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold flex items-center justify-center flex-shrink-0';
+          badge.textContent = i;
+          status.className = 'text-[10px] text-on-surface-variant';
+          status.textContent = 'Pendiente';
+        }
+      }
+    }
+
+    function changeStep(delta) {
+      if (currentStep === 4 && delta === 1) {
+        navigateTo('checklist');
+        return;
+      }
+      const target = currentStep + delta;
+      if (target >= 1 && target <= 4) {
+        renderStep(target);
+      }
+    }
+
+    function jumpToStep(step) {
+      if (step >= 1 && step <= 4) {
+        renderStep(step);
+      }
+    }
       currentDevice = key;
       const data = deviceCatalogData[key];
       if (data) {
