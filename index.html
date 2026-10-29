@@ -891,16 +891,166 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- VISTA 5: MINI JUEGO DE ORDEN (Placeholder) -->
+    <!-- VISTA 5: MINI JUEGO DE ORDEN (F5)          -->
     <!-- ========================================== -->
     <section id="view-mini-juego" class="view-panel hidden flex flex-col w-full space-y-4">
-      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
-        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary">extension</span>
-          Mini Juego de Orden
-        </h2>
-        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      
+      <!-- Panel de Control del Reto -->
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-teal-soft px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[13px]">extension</span> Entrenamiento Táctico
+          </span>
+          <span id="game-status-pill" class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Ordena los pasos
+          </span>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-on-surface tracking-tight">Reto: Orden de Montaje Clínico</h2>
+          <p class="text-xs text-on-surface-variant mt-0.5">
+            Toca o arrastra los pasos del banco inferior hacia las ranuras para armar la secuencia correcta.
+          </p>
+        </div>
+
+        <!-- Tip de uso móvil -->
+        <div class="bg-teal-soft/70 rounded-xl p-2.5 flex items-center gap-2 border border-primary/20 text-xs text-primary">
+          <span class="material-symbols-outlined text-[17px] flex-shrink-0">touch_app</span>
+          <span class="text-[11px] leading-tight">
+            <strong>Fácil en celular:</strong> Toca cualquier tarjeta abajo para colocarla en la ranura vacía. Toca una ranura para devolverla.
+          </span>
+        </div>
       </div>
+
+      <!-- Zona de Ranuras de Secuencia (Slots 1 a 4) -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-xs font-bold text-on-surface uppercase tracking-wider">Secuencia de Montaje (1 a 4)</h3>
+          <span id="game-slots-filled" class="text-xs font-bold text-primary">1 de 4 colocados</span>
+        </div>
+
+        <!-- Ranura 1: Paso Inicial Fijo -->
+        <div class="p-3 rounded-2xl bg-surface-pure border-2 border-primary/30 shadow-xs flex items-center justify-between">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-7 h-7 rounded-xl bg-primary text-on-primary font-bold text-xs flex items-center justify-center flex-shrink-0">
+              01
+            </div>
+            <div class="flex flex-col min-w-0">
+              <span class="text-xs font-bold text-on-surface truncate">1. Inspeccionar válvulas y membranas</span>
+              <span class="text-[10px] text-on-surface-variant truncate">Paso inicial fijado: validar integridad física</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-primary text-[18px] flex-shrink-0">lock</span>
+        </div>
+
+        <!-- Ranura 2 -->
+        <div onclick="removeCardFromSlot(2)" id="slot-2" class="game-slot p-3 rounded-2xl bg-surface-container-low border-2 border-dashed border-outline-variant hover:border-primary/60 transition-all min-h-[58px] flex items-center justify-center cursor-pointer relative" data-slot="2">
+          <div class="slot-placeholder flex items-center gap-2 text-on-surface-variant/70 text-xs font-medium">
+            <span class="w-6 h-6 rounded-lg bg-surface-container text-on-surface-variant font-bold text-[11px] flex items-center justify-center">02</span>
+            <span>Toca una tarjeta abajo para colocar aquí el Paso 2</span>
+          </div>
+        </div>
+
+        <!-- Ranura 3 -->
+        <div onclick="removeCardFromSlot(3)" id="slot-3" class="game-slot p-3 rounded-2xl bg-surface-container-low border-2 border-dashed border-outline-variant hover:border-primary/60 transition-all min-h-[58px] flex items-center justify-center cursor-pointer relative" data-slot="3">
+          <div class="slot-placeholder flex items-center gap-2 text-on-surface-variant/70 text-xs font-medium">
+            <span class="w-6 h-6 rounded-lg bg-surface-container text-on-surface-variant font-bold text-[11px] flex items-center justify-center">03</span>
+            <span>Toca una tarjeta abajo para colocar aquí el Paso 3</span>
+          </div>
+        </div>
+
+        <!-- Ranura 4 -->
+        <div onclick="removeCardFromSlot(4)" id="slot-4" class="game-slot p-3 rounded-2xl bg-surface-container-low border-2 border-dashed border-outline-variant hover:border-primary/60 transition-all min-h-[58px] flex items-center justify-center cursor-pointer relative" data-slot="4">
+          <div class="slot-placeholder flex items-center gap-2 text-on-surface-variant/70 text-xs font-medium">
+            <span class="w-6 h-6 rounded-lg bg-surface-container text-on-surface-variant font-bold text-[11px] flex items-center justify-center">04</span>
+            <span>Toca una tarjeta abajo para colocar aquí el Paso 4</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Banco de Tarjetas Desordenadas (Dock) -->
+      <div class="space-y-2 pt-1">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-xs font-bold text-on-surface uppercase tracking-wider">Pasos Disponibles para Ordenar</h3>
+          <span class="text-[11px] text-on-surface-variant font-medium">Toca para asignar</span>
+        </div>
+
+        <div id="game-card-dock" class="space-y-2">
+          
+          <!-- Tarjeta A: Flujómetro (Correcto en Slot 2) -->
+          <div onclick="placeCardInNextSlot('A')" id="card-A" class="game-action-card p-3 rounded-2xl bg-surface-pure border border-surface-container shadow-xs flex items-center justify-between cursor-pointer hover:border-primary/60 active:scale-[0.98] transition-all" draggable="true" ondragstart="handleDragStart(event, 'A')">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-xl bg-teal-soft text-primary flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-[18px]">cable</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-bold text-on-surface truncate">Acoplar tubuladura al flujómetro mural</span>
+                <span class="text-[10px] text-on-surface-variant truncate">Conectar al niple verde ('arbolito')</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-outline-variant text-[20px] flex-shrink-0 ml-2">drag_indicator</span>
+          </div>
+
+          <!-- Tarjeta B: Pre-llenado de bolsa (Correcto en Slot 3) -->
+          <div onclick="placeCardInNextSlot('B')" id="card-B" class="game-action-card p-3 rounded-2xl bg-surface-pure border border-surface-container shadow-xs flex items-center justify-between cursor-pointer hover:border-primary/60 active:scale-[0.98] transition-all" draggable="true" ondragstart="handleDragStart(event, 'B')">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-xl bg-amber-soft text-status-warning flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-[18px]">air</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-bold text-on-surface truncate">Pre-inflar bolsa ocluyendo válvula (flujo 12-15 L)</span>
+                <span class="text-[10px] text-on-surface-variant truncate">¡Vital! Bolsa llena antes de contactar al paciente</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-outline-variant text-[20px] flex-shrink-0 ml-2">drag_indicator</span>
+          </div>
+
+          <!-- Tarjeta C: Colocación y Clip (Correcto en Slot 4) -->
+          <div onclick="placeCardInNextSlot('C')" id="card-C" class="game-action-card p-3 rounded-2xl bg-surface-pure border border-surface-container shadow-xs flex items-center justify-between cursor-pointer hover:border-primary/60 active:scale-[0.98] transition-all" draggable="true" ondragstart="handleDragStart(event, 'C')">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-xl bg-teal-soft text-primary flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-[18px]">face</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-bold text-on-surface truncate">Colocar al paciente y moldear clip nasal</span>
+                <span class="text-[10px] text-on-surface-variant truncate">Ajustar arnés y sellado facial sin fugas a los ojos</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-outline-variant text-[20px] flex-shrink-0 ml-2">drag_indicator</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Panel de Resultado y Feedback Clínico -->
+      <div id="game-feedback-panel" class="hidden p-3.5 rounded-2xl transition-all border">
+        <div class="flex items-start gap-2.5">
+          <div id="game-feedback-icon-box" class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-[20px]" id="game-feedback-icon">info</span>
+          </div>
+          <div class="flex flex-col min-w-0 flex-1">
+            <span id="game-feedback-title" class="text-xs font-bold">Resultado de la Secuencia</span>
+            <p id="game-feedback-desc" class="text-[11px] mt-0.5 leading-relaxed">
+              Explicación del orden clínico.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botonera Fija del Juego: Comprobar y Reiniciar -->
+      <div class="bg-surface-pure rounded-2xl p-3 shadow-md border border-surface-container flex items-center gap-2">
+        <button onclick="resetGame()" class="flex items-center justify-center gap-1.5 px-3.5 py-3 rounded-xl bg-surface-container text-on-surface font-semibold text-xs active:bg-surface-container-high transition-all flex-shrink-0" type="button">
+          <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+          <span>Reiniciar</span>
+        </button>
+
+        <button onclick="validateGameOrder()" class="flex-1 flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs active:scale-[0.98] transition-all" id="btn-game-validate" type="button">
+          <span class="material-symbols-outlined text-[18px]">check_circle</span>
+          <span>Comprobar Orden</span>
+        </button>
+      </div>
+
     </section>
 
   </main>
@@ -1392,6 +1542,200 @@
         if (badge) badge.classList.remove('hidden');
       }
     }
+
+    // ==========================================
+    // Lógica del Mini Juego de Orden de Montaje (F5)
+    // ==========================================
+    const gameSlotsState = {
+      2: null,
+      3: null,
+      4: null
+    };
+
+    const cardDetails = {
+      'A': {
+        title: "Acoplar tubuladura al flujómetro mural",
+        sub: "Conectar al niple verde ('arbolito')",
+        icon: "cable",
+        iconColor: "text-primary",
+        iconBg: "bg-teal-soft"
+      },
+      'B': {
+        title: "Pre-inflar bolsa ocluyendo válvula (flujo 12-15 L)",
+        sub: "¡Vital! Bolsa llena antes de contactar al paciente",
+        icon: "air",
+        iconColor: "text-status-warning",
+        iconBg: "bg-amber-soft"
+      },
+      'C': {
+        title: "Colocar al paciente y moldear clip nasal",
+        sub: "Ajustar arnés y sellado facial sin fugas a los ojos",
+        icon: "face",
+        iconColor: "text-primary",
+        iconBg: "bg-teal-soft"
+      }
+    };
+
+    function placeCardInNextSlot(cardId) {
+      let targetSlot = null;
+      for (let s = 2; s <= 4; s++) {
+        if (!gameSlotsState[s]) {
+          targetSlot = s;
+          break;
+        }
+      }
+
+      if (!targetSlot) return;
+
+      placeCardInSpecificSlot(targetSlot, cardId);
+    }
+
+    function placeCardInSpecificSlot(slotNum, cardId) {
+      gameSlotsState[slotNum] = cardId;
+      const dockCard = document.getElementById('card-' + cardId);
+      if (dockCard) dockCard.classList.add('hidden');
+
+      const slotElem = document.getElementById('slot-' + slotNum);
+      const detail = cardDetails[cardId];
+      slotElem.className = 'game-slot p-2.5 rounded-2xl bg-surface-pure border-2 border-primary/50 shadow-xs flex items-center justify-between cursor-pointer transition-all active:scale-[0.99]';
+      slotElem.innerHTML = `
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-7 h-7 rounded-xl ${detail.iconBg} ${detail.iconColor} font-bold text-xs flex items-center justify-center flex-shrink-0">
+            0${slotNum}
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-xs font-bold text-on-surface truncate">${detail.title}</span>
+            <span class="text-[10px] text-on-surface-variant truncate">Toca para devolver al banco</span>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-status-danger text-[18px] flex-shrink-0 ml-2" title="Quitar">close</span>
+      `;
+      updateGameSlotsCounter();
+    }
+
+    function removeCardFromSlot(slotNum) {
+      const cardId = gameSlotsState[slotNum];
+      if (!cardId) return;
+
+      gameSlotsState[slotNum] = null;
+
+      const dockCard = document.getElementById('card-' + cardId);
+      if (dockCard) dockCard.classList.remove('hidden');
+
+      const slotElem = document.getElementById('slot-' + slotNum);
+      slotElem.className = 'game-slot p-3 rounded-2xl bg-surface-container-low border-2 border-dashed border-outline-variant hover:border-primary/60 transition-all min-h-[58px] flex items-center justify-center cursor-pointer relative';
+      slotElem.innerHTML = `
+        <div class="slot-placeholder flex items-center gap-2 text-on-surface-variant/70 text-xs font-medium">
+          <span class="w-6 h-6 rounded-lg bg-surface-container text-on-surface-variant font-bold text-[11px] flex items-center justify-center">0${slotNum}</span>
+          <span>Toca una tarjeta abajo para colocar aquí el Paso 0${slotNum}</span>
+        </div>
+      `;
+
+      document.getElementById('game-feedback-panel').classList.add('hidden');
+      updateGameSlotsCounter();
+    }
+
+    function updateGameSlotsCounter() {
+      let filled = 1;
+      for (let s = 2; s <= 4; s++) {
+        if (gameSlotsState[s]) filled++;
+      }
+      document.getElementById('game-slots-filled').textContent = `${filled} de 4 colocados`;
+    }
+
+    function validateGameOrder() {
+      if (!gameSlotsState[2] || !gameSlotsState[3] || !gameSlotsState[4]) {
+        const feedback = document.getElementById('game-feedback-panel');
+        feedback.className = 'p-3.5 rounded-2xl transition-all border bg-amber-soft border-amber-300 text-on-surface';
+        document.getElementById('game-feedback-icon-box').className = 'w-8 h-8 rounded-xl bg-status-warning text-on-primary flex items-center justify-center flex-shrink-0';
+        document.getElementById('game-feedback-icon').textContent = 'warning';
+        document.getElementById('game-feedback-title').textContent = 'Faltan pasos por ubicar';
+        document.getElementById('game-feedback-desc').textContent = 'Coloca los 3 pasos en las ranuras antes de comprobar la secuencia clínica.';
+        feedback.classList.remove('hidden');
+        return;
+      }
+
+      const isCorrect = (gameSlotsState[2] === 'A' && gameSlotsState[3] === 'B' && gameSlotsState[4] === 'C');
+      const feedback = document.getElementById('game-feedback-panel');
+      const pill = document.getElementById('game-status-pill');
+
+      if (isCorrect) {
+        feedback.className = 'p-3.5 rounded-2xl transition-all border bg-green-soft border-green-300 text-on-surface';
+        document.getElementById('game-feedback-icon-box').className = 'w-8 h-8 rounded-xl bg-status-success text-on-primary flex items-center justify-center flex-shrink-0';
+        document.getElementById('game-feedback-icon').textContent = 'verified';
+        document.getElementById('game-feedback-title').textContent = '¡Secuencia 100% Correcta! 🎉';
+        document.getElementById('game-feedback-desc').innerHTML = '<strong>¡Excelente trabajo, Laura!</strong> Armaste el orden perfecto: primero se conecta al flujómetro, luego se pre-infla la bolsa ocluyendo la válvula con el dedo y al final se coloca al paciente. ¡Montaje seguro garantizado!';
+        pill.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-green-soft text-status-success';
+        pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Reto Superado';
+
+        for (let s = 2; s <= 4; s++) {
+          const slotElem = document.getElementById('slot-' + s);
+          slotElem.classList.remove('border-primary/50');
+          slotElem.classList.add('border-status-success', 'bg-green-soft/30');
+        }
+      } else {
+        feedback.className = 'p-3.5 rounded-2xl transition-all border bg-red-soft border-red-300 text-on-surface';
+        document.getElementById('game-feedback-icon-box').className = 'w-8 h-8 rounded-xl bg-status-danger text-on-primary flex items-center justify-center flex-shrink-0';
+        document.getElementById('game-feedback-icon').textContent = 'error';
+        document.getElementById('game-feedback-title').textContent = 'Revisa el orden de las piezas';
+        
+        let hint = "";
+        if (gameSlotsState[2] !== 'A') {
+          hint = "Recuerda que antes de inflar o colocar nada, necesitas conectar la tubuladura al flujómetro mural para tener flujo de gas.";
+        } else if (gameSlotsState[3] !== 'B') {
+          hint = "¡Peligro clínico! NUNCA coloques la máscara al paciente antes de pre-inflar la bolsa por completo; primero se llena la bolsa y de último se fija al paciente.";
+        } else {
+          hint = "Revisa la última tarjeta: el ajuste al paciente y clip nasal siempre va al final.";
+        }
+
+        document.getElementById('game-feedback-desc').textContent = hint;
+        pill.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-soft text-status-danger';
+        pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-status-danger"></span> Orden incorrecto';
+      }
+
+      feedback.classList.remove('hidden');
+    }
+
+    function resetGame() {
+      for (let s = 2; s <= 4; s++) {
+        if (gameSlotsState[s]) {
+          removeCardFromSlot(s);
+        }
+      }
+      document.getElementById('game-feedback-panel').classList.add('hidden');
+      const pill = document.getElementById('game-status-pill');
+      pill.className = 'inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant';
+      pill.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Ordena los pasos';
+    }
+
+    let draggedCardId = null;
+    function handleDragStart(e, cardId) {
+      draggedCardId = cardId;
+      if (e.dataTransfer) {
+        e.dataTransfer.setData('text/plain', cardId);
+      }
+    }
+
+    document.querySelectorAll('.game-slot').forEach(slot => {
+      slot.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        slot.classList.add('border-primary');
+      });
+      slot.addEventListener('dragleave', () => {
+        slot.classList.remove('border-primary');
+      });
+      slot.addEventListener('drop', (e) => {
+        e.preventDefault();
+        slot.classList.remove('border-primary');
+        const cardId = (e.dataTransfer && e.dataTransfer.getData('text/plain')) || draggedCardId;
+        if (cardId) {
+          const slotNum = parseInt(slot.getAttribute('data-slot'));
+          if (slotNum && !gameSlotsState[slotNum]) {
+            placeCardInSpecificSlot(slotNum, cardId);
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
