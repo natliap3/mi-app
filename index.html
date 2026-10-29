@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <title>RespiraPro · Guía de Montaje Clínico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#f8f9ff",
+            "surface-pure": "#FFFFFF",
+            "surface-clinical": "#F8FAFC",
+            "surface-container-low": "#eff4ff",
+            "surface-container": "#e5eeff",
+            "surface-container-high": "#dce9ff",
+            "primary": "#005f6a",
+            "primary-container": "#007a87",
+            "on-primary": "#ffffff",
+            "teal-soft": "#E6F4F6",
+            "secondary": "#565e74",
+            "on-secondary": "#ffffff",
+            "tertiary": "#005b8b",
+            "status-success": "#16A34A",
+            "status-warning": "#D97706",
+            "status-danger": "#DC2626",
+            "green-soft": "#DCFCE7",
+            "amber-soft": "#FEF3C7",
+            "red-soft": "#FEE2E2",
+            "on-surface": "#0b1c30",
+            "on-surface-variant": "#3e494a",
+            "outline": "#6e797b",
+            "outline-variant": "#bdc8cb"
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      overscroll-behavior-y: none;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+    .pb-safe {
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.5rem);
+    }
+    .pt-safe {
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen antialiased selection:bg-teal-soft selection:text-primary">
+
+  <!-- Header Superior Fijo -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-surface-pure/90 backdrop-blur-xl border-b border-surface-container-high/60 shadow-xs pt-safe">
+    <div class="h-16 max-w-md mx-auto px-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+          <span class="material-symbols-outlined text-[22px]">pulmonology</span>
+        </div>
+        <div class="flex flex-col min-w-0 leading-tight">
+          <div class="flex items-center gap-1.5">
+            <span class="font-bold text-base text-primary tracking-tight truncate">RespiraPro</span>
+            <span class="inline-block w-2 h-2 rounded-full bg-status-success" title="Sistema Activo"></span>
+          </div>
+          <span class="text-xs text-on-surface-variant truncate font-medium">Prácticas Clínicas · 5° Semestre</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span class="hidden xs:inline-block text-xs text-on-surface-variant font-medium">Laura M.</span>
+        <div class="relative flex items-center justify-center p-0.5 rounded-full bg-teal-soft ring-1 ring-primary/20">
+          <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
+            LM
+          </div>
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-pure"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal de Vistas -->
+  <main class="flex flex-col relative w-full max-w-md mx-auto px-4 pt-20 pb-safe min-h-screen">
+
+    <!-- ========================================== -->
+    <!-- VISTA 1: CATÁLOGO VISUAL DE DISPOSITIVOS  -->
+    <!-- ========================================== -->
+    <section id="view-dispositivos" class="view-panel flex flex-col w-full space-y-4">
+      
+      <!-- Saludo Clínico & Contexto -->
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="inline-block w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+              <span class="text-xs text-primary uppercase tracking-wider font-bold">Rotación Activa</span>
+            </div>
+            <h1 class="text-lg font-bold text-on-surface tracking-tight">Hola, Laura</h1>
+            <p class="text-xs text-on-surface-variant">Consulta rápida antes de entrar a piso</p>
+          </div>
+          <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant self-start">
+            <span class="material-symbols-outlined text-[15px] text-primary">local_hospital</span>
+            <span class="text-xs font-semibold">Piso 3 · Hospital</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner Destacado: Protocolo Rápido -->
+      <div class="bg-primary text-on-primary rounded-2xl p-4 shadow-md relative overflow-hidden">
+        <div class="absolute -right-3 -bottom-5 opacity-10 pointer-events-none">
+          <span class="material-symbols-outlined text-[120px]">medical_services</span>
+        </div>
+        <div class="relative z-10 flex flex-col space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-teal-soft text-primary text-[11px] font-bold uppercase tracking-wide">
+              <span class="material-symbols-outlined text-[14px]">bolt</span> Dispositivo Seleccionado
+            </span>
+            <span class="text-[11px] text-teal-soft font-medium flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span> Verificar hermeticidad
+            </span>
+          </div>
+          <div>
+            <h2 id="active-device-title" class="text-base font-bold text-on-primary">Máscara con Reservorio</h2>
+            <p id="active-device-subtitle" class="text-xs text-teal-soft opacity-90">No Reinhalación · FiO2 80 - 100% (10-15 L/min)</p>
+          </div>
+          <div class="pt-1 flex gap-2">
+            <button onclick="navigateTo('montaje')" class="flex-1 flex items-center justify-center gap-1.5 bg-surface-pure text-primary font-bold text-xs py-2.5 px-3 rounded-xl shadow-xs active:scale-[0.98] transition-all">
+              <span class="material-symbols-outlined text-[18px]">build_circle</span>
+              <span>Ver Montaje</span>
+            </button>
+            <button onclick="navigateTo('componentes')" class="flex-1 flex items-center justify-center gap-1.5 bg-primary-container text-on-primary font-bold text-xs py-2.5 px-3 rounded-xl shadow-xs active:scale-[0.98] transition-all">
+              <span class="material-symbols-outlined text-[18px]">view_in_ar</span>
+              <span>Explorar Piezas</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros Rápidos por Categoría -->
+      <div class="space-y-2 pt-1">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-sm font-bold text-on-surface">Catálogo de Equipos</h3>
+          <span class="text-xs text-on-surface-variant font-medium">5 Dispositivos clínicos</span>
+        </div>
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <button onclick="filterDevices('all', this)" class="filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-primary text-on-primary text-xs font-semibold shadow-xs transition-all">
+            Todos (5)
+          </button>
+          <button onclick="filterDevices('bajo', this)" class="filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-pure border border-surface-container text-on-surface-variant text-xs font-medium hover:bg-surface-container transition-all">
+            Bajo Flujo
+          </button>
+          <button onclick="filterDevices('alto', this)" class="filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-pure border border-surface-container text-on-surface-variant text-xs font-medium hover:bg-surface-container transition-all">
+            Alto Flujo
+          </button>
+          <button onclick="filterDevices('inhaloterapia', this)" class="filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-pure border border-surface-container text-on-surface-variant text-xs font-medium hover:bg-surface-container transition-all">
+            Aerosolterapia
+          </button>
+          <button onclick="filterDevices('critico', this)" class="filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-pure border border-surface-container text-on-surface-variant text-xs font-medium hover:bg-surface-container transition-all">
+            Ventilación (UCI)
+          </button>
+        </div>
+      </div>
+
+      <!-- Tarjetas de los 5 Dispositivos Clínicos -->
+      <div id="device-list" class="space-y-3">
+        
+        <!-- 1. Máscara con Reservorio -->
+        <article data-category="alto" onclick="selectDevice('reservorio')" class="device-card bg-surface-pure rounded-2xl p-3.5 shadow-sm border-2 border-primary/80 relative overflow-hidden transition-all active:scale-[0.99] cursor-pointer">
+          <div class="absolute top-0 left-0 bottom-0 w-1.5 bg-primary"></div>
+          <div class="flex items-start gap-3 pl-1.5">
+            <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high border border-surface-container">
+              <img class="w-full h-full object-cover" alt="Máscara con Reservorio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdliSxTWNCpi0zuYnFF0RCBGGyu54kI5oMXwbqYsKdG1NnT25JNYngkJRN9bxekxK1f-RytQd8ZzM9JJZ43I4wd4Jo5rwWfO8mfLTtjm9s2ZhNmYOygEPXu1ADQyTUyfzHVY8fopVFJELWm1cC7mC2gMeg48ADik7kgBC2uvBq-kIsfZggW5xY84ovucI-W6NTBi1YobLva_4JlPlXYiheEw4IRzqlIY-YUioCq0VRgPElhS3oMH1vig"/>
+              <div class="absolute top-1 left-1 bg-primary text-on-primary rounded-md p-0.5">
+                <span class="material-symbols-outlined text-[12px]">check</span>
+              </div>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-teal-soft text-primary text-[10px] font-bold">ALTO FLUJO</span>
+                <span class="text-[11px] text-on-surface-variant font-semibold">10 - 15 L/min</span>
+              </div>
+              <h4 class="text-sm font-bold text-on-surface mt-1 leading-snug">Máscara con Reservorio</h4>
+              <p class="text-xs text-on-surface-variant line-clamp-1">No Reinhalación · Válvulas unidireccionales</p>
+              <div class="mt-2 grid grid-cols-2 gap-1 text-[11px]">
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">FiO2 Aprox.</span>
+                  <span class="font-bold text-primary">80 - 100%</span>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Alerta</span>
+                  <span class="font-bold text-status-warning truncate block">Pre-llenar bolsa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-surface-container flex items-center justify-between text-xs pl-1.5">
+            <span class="text-status-warning font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px]">warning</span> Nunca aplicar desinflada
+            </span>
+            <span class="text-primary font-bold flex items-center gap-0.5">
+              Seleccionar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 2. Cánula Nasal -->
+        <article data-category="bajo" onclick="selectDevice('canula')" class="device-card bg-surface-pure rounded-2xl p-3.5 shadow-sm border border-surface-container relative overflow-hidden transition-all active:scale-[0.99] cursor-pointer">
+          <div class="flex items-start gap-3">
+            <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high border border-surface-container">
+              <img class="w-full h-full object-cover" alt="Cánula Nasal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIdkw7IrkDFkfIi_pzzy-Usb5TLiy9gS-n52fCwk93AKT68qkiQJbmSGgeBOsHe4VOgbhPNmeJRX25h0KavpYtguWqdpArVWgBq0DEu6tHFOHI1WzbmTiEh_WfkukSk4w2pboNfdGjofJ5C7rNnCqSGoMOouG-4DMR0JRrNA9pPl_aErKD7gAJ4vScVbRWw37RF4Tni5dMfsE1jzlZ1A4CsNBKEDa2fhe3TfirC7uhzWRNQLp6yHtpBw"/>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-secondary text-[10px] font-bold">BAJO FLUJO</span>
+                <span class="text-[11px] text-secondary font-semibold">1 - 5 L/min</span>
+              </div>
+              <h4 class="text-sm font-bold text-on-surface mt-1 leading-snug">Cánula Nasal (Gafas)</h4>
+              <p class="text-xs text-on-surface-variant line-clamp-1">Puntas curvas suaves de silicona</p>
+              <div class="mt-2 grid grid-cols-2 gap-1 text-[11px]">
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">FiO2 Aprox.</span>
+                  <span class="font-bold text-on-surface">24 - 40%</span>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Confort</span>
+                  <span class="font-bold text-status-success">Permite hablar</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-surface-container flex items-center justify-between text-xs">
+            <span class="text-on-surface-variant font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px] text-status-success">check_circle</span> Uso habitual en salas
+            </span>
+            <span class="text-primary font-bold flex items-center gap-0.5">
+              Ver Guía <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 3. Máscara Simple -->
+        <article data-category="bajo" onclick="selectDevice('simple')" class="device-card bg-surface-pure rounded-2xl p-3.5 shadow-sm border border-surface-container relative overflow-hidden transition-all active:scale-[0.99] cursor-pointer">
+          <div class="flex items-start gap-3">
+            <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high border border-surface-container">
+              <img class="w-full h-full object-cover" alt="Máscara Simple" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpAet8JTsTiIwprg6IuCSB7vwzzT74d7PQA6IXwmU29n-F5vms4upe97D0t2XpFrdnTkEm4dh7mzvApaZ6Uhf2lUqsc4fVlrNY-CDKBpFx_FFVh0-LNwB5EcOFTSgQyjMLQI2-d6G9nhokek5GebaGoslAvsgCN-KgFctwgveOdz9oyCyrLFKds0sVY6_bpJEiw2wKqtV8qB2BaLpTNAOfae887Eh3Nfi3hFczrIKzxS9beSpVKvGMxA"/>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-secondary text-[10px] font-bold">BAJO FLUJO</span>
+                <span class="text-[11px] text-secondary font-semibold">5 - 10 L/min</span>
+              </div>
+              <h4 class="text-sm font-bold text-on-surface mt-1 leading-snug">Máscara Facial Simple</h4>
+              <p class="text-xs text-on-surface-variant line-clamp-1">Sin bolsa · Perforaciones laterales de espiración</p>
+              <div class="mt-2 grid grid-cols-2 gap-1 text-[11px]">
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">FiO2 Aprox.</span>
+                  <span class="font-bold text-on-surface">40 - 60%</span>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Flujo Mínimo</span>
+                  <span class="font-bold text-status-warning">≥ 5 L/min (lavado)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-surface-container flex items-center justify-between text-xs">
+            <span class="text-on-surface-variant font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px] text-primary">info</span> No bajar de 5 L para evitar CO2
+            </span>
+            <span class="text-primary font-bold flex items-center gap-0.5">
+              Ver Guía <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 4. Micronebulizador tipo Jet -->
+        <article data-category="inhaloterapia" onclick="selectDevice('nebulizador')" class="device-card bg-surface-pure rounded-2xl p-3.5 shadow-sm border border-surface-container relative overflow-hidden transition-all active:scale-[0.99] cursor-pointer">
+          <div class="flex items-start gap-3">
+            <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high border border-surface-container">
+              <img class="w-full h-full object-cover" alt="Micronebulizador Jet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoqsH73wt5-iOBUvRONu6TbZIgDLEbLlgbockPhLxOAj9MDizpfr49wA9hynKVG4pfKCuz8ax9vXhIffj1nwDMZ0zlercx5iAP9WXLiwQWpLc6dWgQTSa2v7u39MtP8r0U9OLjOizg-klqxtHPx_BzxWtMy-V_rUvY3zkazeuvidl5v0B56SNCNSP43HMZEIyZpmcQD8_cgNyfa-K87QEHIbLYoLsMQE_XqpRZsX3YwQwx_wiGbrNV_g"/>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-teal-soft text-primary text-[10px] font-bold">AEROSOLTERAPIA</span>
+                <span class="text-[11px] text-secondary font-semibold">6 - 8 L/min</span>
+              </div>
+              <h4 class="text-sm font-bold text-on-surface mt-1 leading-snug">Nebulizador Tipo Jet</h4>
+              <p class="text-xs text-on-surface-variant line-clamp-1">Cámara graduada con pieza en T</p>
+              <div class="mt-2 grid grid-cols-2 gap-1 text-[11px]">
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Carga Solución</span>
+                  <span class="font-bold text-on-surface">3 - 5 mL</span>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Partícula MMAD</span>
+                  <span class="font-bold text-tertiary">1 - 5 µm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-surface-container flex items-center justify-between text-xs">
+            <span class="text-on-surface-variant font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px] text-tertiary">air</span> Generación de microgotas
+            </span>
+            <span class="text-primary font-bold flex items-center gap-0.5">
+              Ver Guía <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 5. Circuito de Ventilador Mecánico -->
+        <article data-category="critico" onclick="selectDevice('ventilador')" class="device-card bg-surface-pure rounded-2xl p-3.5 shadow-sm border border-surface-container relative overflow-hidden transition-all active:scale-[0.99] cursor-pointer">
+          <div class="flex items-start gap-3">
+            <div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high border border-surface-container">
+              <img class="w-full h-full object-cover" alt="Circuito Ventilador Mecánico" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLRMATlVPFj_sjgd8l5c-GSLera4RDR6aiK7tLKo316B2UFjucpPEADANqMfZ0kPnYzwr_cQj6IhENMZx35kAezBL1gBKH17vKXQx8ygVUIDHW1eb4ElpAwwbRG4OT_OnPdHxHTfKLmAId1Lf3sPkLHu-VIVZGSHWortLROAQ0yt13cCvvH_wc9OD3DFq9X7j2xaVlSBay2frUGr0upg-9QRmI9uvaBMrcQLECSgXx6nMzpipU9aPnWQ"/>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-red-soft text-status-danger text-[10px] font-bold">CRÍTICO / UCI</span>
+                <span class="text-[11px] text-on-surface-variant font-semibold">22 mm D.I.</span>
+              </div>
+              <h4 class="text-sm font-bold text-on-surface mt-1 leading-snug">Circuito Ventilador Mecánico</h4>
+              <p class="text-xs text-on-surface-variant line-clamp-1">Doble rama con trampa de agua y filtro HMEF</p>
+              <div class="mt-2 grid grid-cols-2 gap-1 text-[11px]">
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Conexión Pieza Y</span>
+                  <span class="font-bold text-on-surface">15M / 22F</span>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-1.5">
+                  <span class="text-on-surface-variant block text-[10px]">Test Hermético</span>
+                  <span class="font-bold text-status-success">Obligatorio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2.5 pt-2 border-t border-surface-container flex items-center justify-between text-xs">
+            <span class="text-status-warning font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px]">lock</span> Requiere test de fuga previo
+            </span>
+            <span class="text-primary font-bold flex items-center gap-0.5">
+              Ver Guía <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            </span>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Recordatorio Clínico en Pie de Página -->
+      <div class="bg-amber-soft text-status-warning rounded-2xl p-3.5 flex items-start gap-2.5 border border-amber-200/60">
+        <span class="material-symbols-outlined text-[22px] flex-shrink-0 mt-0.5">lightbulb</span>
+        <div class="text-xs text-on-surface">
+          <span class="font-bold text-status-warning block mb-0.5">Regla de Oro en Práctica Clínica:</span>
+          Toca cualquier dispositivo para ver sus componentes, cómo se arma paso a paso o poner a prueba tu memoria con el mini-juego.
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VISTA 2: COMPONENTES (Placeholder Inicial) -->
+    <!-- ========================================== -->
+    <section id="view-componentes" class="view-panel hidden flex flex-col w-full space-y-4">
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
+        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">view_in_ar</span>
+          Explorador de Componentes
+        </h2>
+        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VISTA 3: MONTAJE PASO A PASO (Placeholder) -->
+    <!-- ========================================== -->
+    <section id="view-montaje" class="view-panel hidden flex flex-col w-full space-y-4">
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
+        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">build_circle</span>
+          Montaje Paso a Paso
+        </h2>
+        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VISTA 4: CHECKLIST CLÍNICO (Placeholder)  -->
+    <!-- ========================================== -->
+    <section id="view-checklist" class="view-panel hidden flex flex-col w-full space-y-4">
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
+        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">fact_check</span>
+          Checklist Pre-Uso
+        </h2>
+        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VISTA 5: MINI JUEGO DE ORDEN (Placeholder) -->
+    <!-- ========================================== -->
+    <section id="view-mini-juego" class="view-panel hidden flex flex-col w-full space-y-4">
+      <div class="bg-surface-pure rounded-2xl p-4 shadow-sm border border-surface-container">
+        <h2 class="text-base font-bold text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">extension</span>
+          Mini Juego de Orden
+        </h2>
+        <p class="text-xs text-on-surface-variant mt-1">Próxima función en el plan paso a paso.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Barra de Navegación Inferior Fija (Mobile Tab Bar) -->
+  <nav class="fixed bottom-0 inset-x-0 z-50 bg-surface-pure/95 backdrop-blur-xl border-t border-surface-container-high/60 shadow-lg">
+    <div class="max-w-md mx-auto flex items-center justify-around h-16 px-1">
+      
+      <button onclick="navigateTo('dispositivos')" class="nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-primary font-bold transition-all" data-target="dispositivos">
+        <span class="material-symbols-outlined text-[24px]">medical_services</span>
+        <span class="text-[11px] mt-0.5">Equipos</span>
+      </button>
+
+      <button onclick="navigateTo('componentes')" class="nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-on-surface-variant hover:text-on-surface font-medium transition-all" data-target="componentes">
+        <span class="material-symbols-outlined text-[24px]">view_in_ar</span>
+        <span class="text-[11px] mt-0.5">Piezas</span>
+      </button>
+
+      <button onclick="navigateTo('montaje')" class="nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-on-surface-variant hover:text-on-surface font-medium transition-all" data-target="montaje">
+        <span class="material-symbols-outlined text-[24px]">build_circle</span>
+        <span class="text-[11px] mt-0.5">Montaje</span>
+      </button>
+
+      <button onclick="navigateTo('checklist')" class="nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-on-surface-variant hover:text-on-surface font-medium transition-all" data-target="checklist">
+        <span class="material-symbols-outlined text-[24px]">fact_check</span>
+        <span class="text-[11px] mt-0.5">Checklist</span>
+      </button>
+
+      <button onclick="navigateTo('mini-juego')" class="nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-on-surface-variant hover:text-on-surface font-medium transition-all" data-target="mini-juego">
+        <span class="material-symbols-outlined text-[24px]">extension</span>
+        <span class="text-[11px] mt-0.5">Juego</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Script de Navegación y Lógica del Catálogo -->
+  <script>
+    // Estado Global de la App
+    let currentDevice = 'reservorio';
+
+    const deviceCatalogData = {
+      reservorio: {
+        title: "Máscara con Reservorio",
+        subtitle: "No Reinhalación · FiO2 80 - 100% (10-15 L/min)"
+      },
+      canula: {
+        title: "Cánula Nasal (Gafas)",
+        subtitle: "Bajo Flujo · FiO2 24 - 40% (1-5 L/min)"
+      },
+      simple: {
+        title: "Máscara Facial Simple",
+        subtitle: "Bajo Flujo · FiO2 40 - 60% (5-10 L/min)"
+      },
+      nebulizador: {
+        title: "Nebulizador Tipo Jet",
+        subtitle: "Aerosolterapia · Flujo 6 - 8 L/min (3-5 mL)"
+      },
+      ventilador: {
+        title: "Circuito Ventilador Mecánico",
+        subtitle: "Ventilación UCI · Doble rama con filtro HMEF"
+      }
+    };
+
+    // Navegación entre vistas
+    function navigateTo(viewId) {
+      document.querySelectorAll('.view-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      const activePanel = document.getElementById('view-' + viewId);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
+      }
+
+      // Actualizar estilo en la barra de navegación
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        const target = tab.getAttribute('data-target');
+        if (target === viewId) {
+          tab.className = 'nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-primary font-bold transition-all';
+        } else {
+          tab.className = 'nav-tab flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-on-surface-variant hover:text-on-surface font-medium transition-all';
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Filtrar tarjetas del catálogo
+    function filterDevices(cat, btn) {
+      document.querySelectorAll('.filter-chip').forEach(b => {
+        b.className = 'filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-pure border border-surface-container text-on-surface-variant text-xs font-medium hover:bg-surface-container transition-all';
+      });
+      btn.className = 'filter-chip flex-shrink-0 px-3.5 py-1.5 rounded-full bg-primary text-on-primary text-xs font-semibold shadow-xs transition-all';
+
+      const cards = document.querySelectorAll('.device-card');
+      cards.forEach(card => {
+        const itemCat = card.getAttribute('data-category');
+        if (cat === 'all' || itemCat === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Seleccionar dispositivo activo
+    function selectDevice(key) {
+      currentDevice = key;
+      const data = deviceCatalogData[key];
+      if (data) {
+        document.getElementById('active-device-title').textContent = data.title;
+        document.getElementById('active-device-subtitle').textContent = data.subtitle;
+      }
+
+      // Resaltar tarjeta seleccionada
+      document.querySelectorAll('.device-card').forEach(card => {
+        card.classList.remove('border-2', 'border-primary/80');
+        card.classList.add('border', 'border-surface-container');
+        const badge = card.querySelector('.absolute.top-1.left-1');
+        if (badge) badge.classList.add('hidden');
+      });
+
+      const clicked = event.currentTarget;
+      if (clicked) {
+        clicked.classList.remove('border', 'border-surface-container');
+        clicked.classList.add('border-2', 'border-primary/80');
+        const badge = clicked.querySelector('.absolute.top-1.left-1');
+        if (badge) badge.classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
